@@ -1,0 +1,9 @@
+// adds one recipe
+POST http://localhost:3001/api/recipes
+Content-Type: application/json
+
+{
+    "name": "Egg",
+    "recipe": "Fry 130C for 11 minutes. Cool egg in cold water.",
+    "ingredients": "An egg"
+}

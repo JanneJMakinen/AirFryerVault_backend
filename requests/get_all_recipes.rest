@@ -1,0 +1,2 @@
+// get all recipes
+GET http://localhost:3001/api/recipes

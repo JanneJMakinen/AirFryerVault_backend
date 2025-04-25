@@ -1,0 +1,9 @@
+// adds one recipe
+POST http://localhost:3001/api/recipes
+Content-Type: application/json
+
+{
+    "name": "French fries",
+    "recipe": "Fry 180C for 10 minutes. Shake after 6 minutes. Add ketchup and salt.",
+    "ingredients": "Potatoes"
+}
