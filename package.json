@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "node --watch index.js",
     "deploy:be": "git add . && git commit -m bebuild && git push -u origin main",
-    "deploy:full": "../airfryervault_frontend && npm run build:ui && npm run deploy:ui && cd ../airfryervault_backend && npm run deploy:be"
+    "deploy:full": "cd ../airfryervault_frontend && npm run build:ui && npm run deploy:ui && cd ../airfryervault_backend && npm run deploy:be"
   },
   "author": "",
   "license": "ISC",
