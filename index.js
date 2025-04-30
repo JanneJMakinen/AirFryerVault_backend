@@ -10,6 +10,9 @@
 // search functionality
 // add more requests for testing
 
+// ADDED
+// requests were missing next
+
 require('dotenv').config()  // remember to config .env and .gitignore 
 const express = require('express')
 const Recipe = require('./models/recipe')
@@ -28,7 +31,7 @@ app.use(requestLogger)
 
 // uses mongo with error middleware
 // get all recipes
-app.get('/api/recipes', (request, response) => {
+app.get('/api/recipes', (request, response, next) => {
     console.log('BE: app.get()')
     Recipe.find({}).then(recipes => {
         response.json(recipes)
@@ -38,12 +41,14 @@ app.get('/api/recipes', (request, response) => {
 
 // uses mongo with error middleware
 // add a recipe
-app.post('/api/recipes', (request, response) => {
+app.post('/api/recipes', (request, response, next) => {
     console.log('BE: app.post()')
-    const body = request.body
-    if (!body.name) {
-      return response.status(400).json({ error: 'recipe name missing!' })
-    }
+    
+    // check done via schema required
+    //const body = request.body
+    // if (!body.name) {
+    //   return response.status(400).json({ error: 'recipe name missing!' })
+    // }
     const recipe = new Recipe({
         name: body.name,
         recipe: body.recipe,
@@ -63,10 +68,12 @@ app.use(unknownEndpoint)
 const errorHandler = (error, request, response, next) => {
     console.error(error.message)
     if (error.name === 'CastError') {
-      return response.status(400).send({ error: 'BE: malformatted id' })
+      return response.status(400).send({ error: 'malformatted id' })
+    } else if (error.name === 'ValidationError') {
+      return response.status(400).json({ error: error.message })
     }
     next(error)
-}
+  }
 app.use(errorHandler)
 
 const PORT = process.env.PORT
